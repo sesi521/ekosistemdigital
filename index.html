@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigasi Media Digital & Literasi Informasi (HOTS)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        cyber: {
+                            dark: '#0B0F19',
+                            card: '#161F33',
+                            border: '#2A3654',
+                            cyan: '#00F0FF',
+                            purple: '#7000FF',
+                            pink: '#FF007A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-effect { box-shadow: 0 0 25px rgba(0, 240, 255, 0.15); }
+        .glow-purple { box-shadow: 0 0 25px rgba(112, 0, 255, 0.2); }
+        .tab-active { border-bottom: 3px solid #00F0FF; color: #00F0FF; }
+    </style>
+</head>
+<body class="bg-cyber-dark text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-cyan-400 selection:text-slate-900">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-cyber-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showScreen('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-cyan-500/30">
+                    MD
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">
+                        NAVIGASI MEDIA DIGITAL
+                    </h1>
+                    <p class="text-xs text-slate-400">Media Pembelajaran Interaktif Berbasis HOTS</p>
+                </div>
+            </div>
+
+            <!-- Global Progress Bar -->
+            <div class="hidden md:flex items-center space-x-6">
+                <div class="flex flex-col text-right">
+                    <span class="text-xs text-slate-400">Kemajuan Pembelajaran</span>
+                    <span id="progress-percent" class="text-sm font-bold text-cyan-400">0% Selesai</span>
+                </div>
+                <div class="w-36 bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700">
+                    <div id="progress-bar-fill" class="bg-gradient-to-r from-cyan-500 to-purple-500 h-full w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- ================= SCENE 1: HOME DASHBOARD ================= -->
+        <section id="screen-home" class="space-y-10 animate-fade-in">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-slate-900 via-cyber-card to-slate-900 border border-cyber-border rounded-3xl p-8 md:p-12 glow-effect relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="max-w-3xl space-y-6 relative z-10">
+                    <span class="px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
+                        🎯 Literasi Digital & Berpikir Kritis (HOTS)
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">
+                        Pahami Ekosistemnya, <br>
+                        <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Kritis Memilih Informasinya!</span>
+                    </h2>
+                    <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+                        Jelajahi bagaimana media digital diproduksi oleh <b>Tim Produksi, Teknologi, dan Distribusi</b>, serta latih kemampuan detektifmu untuk membedakan <b>Fakta, Opini, dan Hoaks</b> secara sistematis.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="showScreen('submodul1')" class="px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 font-bold text-slate-950 rounded-xl transition shadow-lg shadow-cyan-500/25 flex items-center space-x-2">
+                            <span>Mulai Sub-Modul 1</span>
+                            <span>➔</span>
+                        </button>
+                        <button onclick="showScreen('submodul2')" class="px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold rounded-xl transition">
+                            Sub-Modul 2 (Detektif Info)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul Selection Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div onclick="showScreen('submodul1')" class="bg-cyber-card border border-cyber-border hover:border-cyan-500/50 rounded-2xl p-6 transition duration-300 cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition">
+                        🌐
+                    </div>
+                    <span class="text-xs text-cyan-400 font-bold">SUB-MODUL 1</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Ekosistem Media Digital</h3>
+                    <p class="text-slate-400 text-sm">Pelajari gabungan fungsi Tim Produksi, Teknologi & Multimedia, serta Tim Distribusi dalam redaksi berita digital.</p>
+                </div>
+                <!-- Card 2 -->
+                <div onclick="showScreen('submodul2')" class="bg-cyber-card border border-cyber-border hover:border-purple-500/50 rounded-2xl p-6 transition duration-300 cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition">
+                        🔍
+                    </div>
+                    <span class="text-xs text-purple-400 font-bold">SUB-MODUL 2</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Fakta, Opini & Hoaks</h3>
+                    <p class="text-slate-400 text-sm">Uji kejelianmu menganalisis 6 studi kasus postingan media sosial dalam Simulasi Detektif Informasi.</p>
+                </div>
+                <!-- Card 3 -->
+                <div onclick="showScreen('kuis')" class="bg-cyber-card border border-cyber-border hover:border-amber-500/50 rounded-2xl p-6 transition duration-300 cursor-pointer group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition">
+                        🏆
+                    </div>
+                    <span class="text-xs text-amber-400 font-bold">EVALUASI HOTS</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Kuis 10 Soal Case-Study</h3>
+                    <p class="text-slate-400 text-sm">Uji pemahaman mendalam C4-C6, unduh rekapitulasi nilai (.CSV) dan dapatkan Sertifikat Literasi Digital.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SCENE 2: SUB-MODUL 1 ================= -->
+        <section id="screen-submodul1" class="hidden space-y-8 animate-fade-in">
+            <div class="border-b border-cyber-border pb-4 flex justify-between items-end">
+                <div>
+                    <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider">Sub-Modul 1</span>
+                    <h2 class="text-3xl font-black text-white">Ekosistem Media Digital</h2>
+                </div>
+                <button onclick="showScreen('submodul2')" class="text-sm text-cyan-400 hover:underline">Ke Sub-Modul 2 ➔</button>
+            </div>
+
+            <!-- Pengertian Box -->
+            <div class="bg-slate-900 border-l-4 border-cyan-500 p-6 rounded-r-2xl space-y-2">
+                <h4 class="font-bold text-cyan-400 text-lg">Konsep Utama Ekosistem Media Digital</h4>
+                <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                    <b>Ekosistem Media Digital</b> adalah kombinasi sinergis antara peran individu (seperti reporter, editor, desainer, dan analis), teknologi pendukung, audiens, serta sistem distribusi yang bekerja sama untuk memastikan informasi berita tersaji secara akurat, relevan, dan cepat di era digital.
+                </p>
+            </div>
+
+            <!-- Peran Tiga Divisi -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-cyber-card border border-cyber-border p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="p-3 bg-red-500/10 text-red-400 rounded-xl font-black">🎬</span>
+                        <h3 class="font-bold text-lg text-white">Tim Produksi</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Bertanggung jawab merancang ide, meriset, dan menyusun isi informasi berita.</p>
+                    <ul class="text-xs text-slate-300 space-y-2">
+                        <li class="bg-slate-800 p-2 rounded">• <b>Reporter:</b> Memburu berita & wawancara lapangan.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Editor:</b> Memeriksa kebenaran fakta & kelayakan tayang.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Penulis Naskah & Desainer:</b> Menyusun draf teks & visual.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-cyber-card border border-cyber-border p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="p-3 bg-blue-500/10 text-blue-400 rounded-xl font-black">💻</span>
+                        <h3 class="font-bold text-lg text-white">Tim Teknologi & Multimedia</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Menyediakan platform digital, memastikan keamanan server, dan tampilan multimedia interaktif.</p>
+                    <ul class="text-xs text-slate-300 space-y-2">
+                        <li class="bg-slate-800 p-2 rounded">• <b>Web Developer:</b> Membangun portal berita online.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Teknisi Infrastruktur:</b> Menjaga server tidak tumbang.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Desainer UI/UX:</b> Merancang kenyamanan baca aplikasi.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-cyber-card border border-cyber-border p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="p-3 bg-green-500/10 text-green-400 rounded-xl font-black">📢</span>
+                        <h3 class="font-bold text-lg text-white">Tim Distribusi</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Memastikan konten sampai ke tangan audiens melalui algoritma dan saluran media sosial.</p>
+                    <ul class="text-xs text-slate-300 space-y-2">
+                        <li class="bg-slate-800 p-2 rounded">• <b>Social Media Specialist:</b> Mengelola konten IG/TikTok/X.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Analis Data Performa:</b> Membaca trafik & minat pembaca.</li>
+                        <li class="bg-slate-800 p-2 rounded">• <b>Perancang Strategi SEO:</b> Mengoptimalkan pencarian Google.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- AKTIVITAS 1: MINI GAME MATCHING PERAN -->
+            <div class="bg-slate-900 border border-cyber-border rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-bold rounded-full">GAME INTERAKTIF 1</span>
+                        <h3 class="text-2xl font-black text-white mt-1">Pencocokan Peran Redaksi Digital</h3>
+                        <p class="text-slate-400 text-sm">Klik skenario pekerjaan di bawah, lalu klik wadah tim yang sesuai!</p>
+                    </div>
+                    <div class="bg-slate-800 px-4 py-2 rounded-xl text-cyan-400 font-bold text-sm">
+                        Skor Akt 1: <span id="akt1-score">0</span> / 90
+                    </div>
+                </div>
+
+                <!-- Source Items -->
+                <div class="space-y-2">
+                    <span class="text-xs text-slate-400 font-semibold uppercase">Pilih Skenario Tugas berikut:</span>
+                    <div id="akt1-items" class="flex flex-wrap gap-3">
+                        <!-- Items populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Drop Targets -->
+                <div class="grid md:grid-cols-3 gap-4 pt-4">
+                    <div onclick="dropAkt1('PRODUKSI')" class="bg-cyber-card border-2 border-dashed border-red-500/40 hover:border-red-500 p-4 rounded-2xl cursor-pointer min-h-[160px] space-y-3">
+                        <div class="flex items-center justify-between text-red-400 font-bold border-b border-slate-700 pb-2">
+                            <span>🎬 TIM PRODUKSI</span>
+                            <span class="text-xs bg-red-500/20 px-2 py-0.5 rounded">Klik untuk tempatkan</span>
+                        </div>
+                        <div id="target-PRODUKSI" class="space-y-2"></div>
+                    </div>
+
+                    <div onclick="dropAkt1('TEKNOLOGI')" class="bg-cyber-card border-2 border-dashed border-blue-500/40 hover:border-blue-500 p-4 rounded-2xl cursor-pointer min-h-[160px] space-y-3">
+                        <div class="flex items-center justify-between text-blue-400 font-bold border-b border-slate-700 pb-2">
+                            <span>💻 TIM TEKNOLOGI</span>
+                            <span class="text-xs bg-blue-500/20 px-2 py-0.5 rounded">Klik untuk tempatkan</span>
+                        </div>
+                        <div id="target-TEKNOLOGI" class="space-y-2"></div>
+                    </div>
+
+                    <div onclick="dropAkt1('DISTRIBUSI')" class="bg-cyber-card border-2 border-dashed border-green-500/40 hover:border-green-500 p-4 rounded-2xl cursor-pointer min-h-[160px] space-y-3">
+                        <div class="flex items-center justify-between text-green-400 font-bold border-b border-slate-700 pb-2">
+                            <span>📢 TIM DISTRIBUSI</span>
+                            <span class="text-xs bg-green-500/20 px-2 py-0.5 rounded">Klik untuk tempatkan</span>
+                        </div>
+                        <div id="target-DISTRIBUSI" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <div id="akt1-feedback" class="hidden p-4 rounded-xl text-sm font-semibold"></div>
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="showScreen('submodul2')" class="px-6 py-3 bg-cyan-500 text-slate-950 font-bold rounded-xl hover:bg-cyan-400 transition">
+                    Lanjut ke Sub-Modul 2 ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= SCENE 3: SUB-MODUL 2 ================= -->
+        <section id="screen-submodul2" class="hidden space-y-8 animate-fade-in">
+            <div class="border-b border-cyber-border pb-4 flex justify-between items-end">
+                <div>
+                    <span class="text-xs text-purple-400 font-bold uppercase tracking-wider">Sub-Modul 2</span>
+                    <h2 class="text-3xl font-black text-white">Fakta, Opini, dan Hoaks</h2>
+                </div>
+                <button onclick="showScreen('kuis')" class="text-sm text-purple-400 hover:underline">Ke Kuis Evaluasi HOTS ➔</button>
+            </div>
+
+            <!-- Matriks Perbandingan -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Fakta -->
+                <div class="bg-cyber-card border border-emerald-500/30 p-6 rounded-2xl space-y-4 glow-effect">
+                    <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center font-black text-xl">📌</div>
+                    <h3 class="text-xl font-bold text-white">FAKTA</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">Keadaan atau peristiwa nyata yang <b>benar-benar terjadi</b> dan dapat dibuktikan kebenarannya secara objektif.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <span class="font-bold text-emerald-400">Ciri Utama:</span>
+                        <p class="text-slate-400">• Berdasarkan data statistik / riset sah.<br>• Memiliki bukti waktu & lokasi pasti.<br>• Bersifat objektif (tanpa pendapat pribadi).</p>
+                    </div>
+                </div>
+
+                <!-- Opini -->
+                <div class="bg-cyber-card border border-amber-500/30 p-6 rounded-2xl space-y-4">
+                    <div class="w-10 h-10 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center font-black text-xl">💬</div>
+                    <h3 class="text-xl font-bold text-white">OPINI</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">Pendapat, pandangan, atau sikap pribadi seseorang yang <b>bersifat subjektif</b> mengenai suatu hal.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <span class="font-bold text-amber-400">Ciri Utama:</span>
+                        <p class="text-slate-400">• Berisi tanggapan, saran, atau prediksi.<br>• Menggunakan kata *"sebaiknya", "tampaknya"*.<br>• Tidak memiliki nilai kebenaran mutlak.</p>
+                    </div>
+                </div>
+
+                <!-- Hoaks -->
+                <div class="bg-cyber-card border border-rose-500/30 p-6 rounded-2xl space-y-4 glow-purple">
+                    <div class="w-10 h-10 bg-rose-500/20 text-rose-400 rounded-xl flex items-center justify-center font-black text-xl">🚨</div>
+                    <h3 class="text-xl font-bold text-white">HOAKS</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">Berita palsu yang <b>sengaja dibuat untuk menyesatkan</b>, menghasut, atau memanipulasi persepsi publik.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <span class="font-bold text-rose-400">Ciri Utama:</span>
+                        <p class="text-slate-400">• Judul provokatif & meminta disebarkan.<br>• Manipulasi visual / foto tak sesuai konteks.<br>• Tanpa rujukan sumber yang kredibel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AKTIVITAS 2: SIMULASI DETEKTIF SOCIAL FEED -->
+            <div class="bg-slate-900 border border-cyber-border rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded-full">GAME INTERAKTIF 2</span>
+                        <h3 class="text-2xl font-black text-white mt-1">Simulasi Detektif Informasi (6 Case-Study)</h3>
+                        <p class="text-slate-400 text-sm">Analisis postingan feed media sosial di bawah, lalu tentukan kategorinya!</p>
+                    </div>
+                    <div class="bg-slate-800 px-4 py-2 rounded-xl text-purple-400 font-bold text-sm">
+                        Kasus: <span id="akt2-current-index">1</span> / 6
+                    </div>
+                </div>
+
+                <!-- Feed Post Card Simulator -->
+                <div class="max-w-xl mx-auto bg-cyber-card border border-slate-700 rounded-2xl p-6 space-y-4 shadow-2xl">
+                    <div class="flex items-center space-x-3">
+                        <div id="akt2-avatar" class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-sm">
+                            👤
+                        </div>
+                        <div>
+                            <h4 id="akt2-author" class="font-bold text-sm text-white">@pengguna_digital</h4>
+                            <span class="text-xs text-slate-400">Diposting 10 menit yang lalu</span>
+                        </div>
+                    </div>
+
+                    <div id="akt2-content" class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-sm text-slate-200 leading-relaxed font-mono">
+                        <!-- Content dynamic -->
+                    </div>
+
+                    <!-- Choice Buttons -->
+                    <div class="grid grid-cols-3 gap-3 pt-2">
+                        <button onclick="answerAkt2('FAKTA')" class="py-3 bg-emerald-500/10 border border-emerald-500/40 hover:bg-emerald-500/30 text-emerald-400 font-bold rounded-xl transition text-xs md:text-sm">
+                            📌 FAKTA
+                        </button>
+                        <button onclick="answerAkt2('OPINI')" class="py-3 bg-amber-500/10 border border-amber-500/40 hover:bg-amber-500/30 text-amber-400 font-bold rounded-xl transition text-xs md:text-sm">
+                            💬 OPINI
+                        </button>
+                        <button onclick="answerAkt2('HOAKS')" class="py-3 bg-rose-500/10 border border-rose-500/40 hover:bg-rose-500/30 text-rose-400 font-bold rounded-xl transition text-xs md:text-sm">
+                            🚨 HOAKS
+                        </button>
+                    </div>
+
+                    <!-- Instant Feedback Box -->
+                    <div id="akt2-fb-box" class="hidden p-4 rounded-xl text-xs space-y-2 border"></div>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="showScreen('kuis')" class="px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-500 transition">
+                    Mulai Evaluasi HOTS (10 Soal) ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= SCENE 4: EVALUASI KUIS HOTS ================= -->
+        <section id="screen-kuis" class="hidden space-y-8 animate-fade-in">
+            <div class="border-b border-cyber-border pb-4 flex justify-between items-end">
+                <div>
+                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Evaluasi Capaian Pembelajaran</span>
+                    <h2 class="text-3xl font-black text-white">Kuis HOTS (Higher Order Thinking Skills)</h2>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-slate-400">Nomor Soal</span>
+                    <p class="text-lg font-bold text-amber-400"><span id="quiz-num">1</span> / 10</p>
+                </div>
+            </div>
+
+            <div class="bg-cyber-card border border-cyber-border rounded-3xl p-6 md:p-10 space-y-6">
+                <!-- Question Header -->
+                <div class="space-y-3">
+                    <span id="quiz-level-badge" class="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full">
+                        LEVEL C4: ANALISIS
+                    </span>
+                    <h3 id="quiz-question-text" class="text-lg md:text-xl font-bold text-white leading-relaxed">
+                        Loading soal...
+                    </h3>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div id="quiz-options-container" class="space-y-3">
+                    <!-- Options loaded by JS -->
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="quiz-explanation" class="hidden p-4 bg-slate-900 border border-slate-700 rounded-xl text-xs md:text-sm text-slate-300 space-y-1">
+                </div>
+
+                <!-- Next Button -->
+                <div class="flex justify-end pt-4">
+                    <button id="btn-next-quiz" onclick="nextQuestion()" disabled class="px-6 py-3 bg-slate-800 text-slate-500 font-bold rounded-xl cursor-not-allowed transition">
+                        Soal Berikutnya ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SCENE 5: HASIL & SERTIFIKAT ================= -->
+        <section id="screen-hasil" class="hidden space-y-8 animate-fade-in">
+            <div class="bg-slate-900 border border-cyber-border rounded-3xl p-8 md:p-12 text-center space-y-6 glow-effect">
+                <div class="inline-block p-4 bg-gradient-to-tr from-amber-500 to-purple-600 rounded-3xl text-4xl shadow-lg">
+                    🏆
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-3xl md:text-4xl font-black text-white">Hasil Evaluasi Pembelajaran</h2>
+                    <p class="text-slate-400 text-sm">Dokumentasi Pengambilan Nilai Ketercapaian Pembelajaran</p>
+                </div>
+
+                <!-- Score Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto pt-4">
+                    <div class="bg-cyber-card border border-slate-700 p-4 rounded-2xl">
+                        <span class="text-xs text-slate-400">Akt. 1 (Ekosistem)</span>
+                        <p id="res-akt1" class="text-2xl font-black text-cyan-400">0</p>
+                    </div>
+                    <div class="bg-cyber-card border border-slate-700 p-4 rounded-2xl">
+                        <span class="text-xs text-slate-400">Akt. 2 (Detektif)</span>
+                        <p id="res-akt2" class="text-2xl font-black text-purple-400">0</p>
+                    </div>
+                    <div class="bg-cyber-card border border-slate-700 p-4 rounded-2xl">
+                        <span class="text-xs text-slate-400">Kuis HOTS</span>
+                        <p id="res-kuis" class="text-2xl font-black text-amber-400">0</p>
+                    </div>
+                    <div class="bg-cyber-card border border-cyan-500/50 p-4 rounded-2xl bg-cyan-950/20">
+                        <span class="text-xs text-cyan-400 font-bold">TOTAL NILAI</span>
+                        <p id="res-total" class="text-2xl font-black text-white">0</p>
+                    </div>
+                </div>
+
+                <!-- Predikat & Status -->
+                <div class="inline-flex items-center space-x-3 px-6 py-2.5 bg-slate-800 border border-slate-700 rounded-full">
+                    <span class="text-xs text-slate-400">Predikat Literasi:</span>
+                    <span id="res-predikat" class="text-sm font-bold text-cyan-400">Master Detektif Digital</span>
+                </div>
+
+                <!-- FORM IDENTITAS & DOWLOAD REKAP SPREADSHEET -->
+                <div class="max-w-xl mx-auto bg-cyber-card border border-cyber-border p-6 rounded-2xl text-left space-y-4">
+                    <h4 class="font-bold text-white text-sm border-b border-slate-700 pb-2">📂 Form Pendokumentasian Nilai Guru</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-slate-400 font-semibold">Nama Lengkap Siswa</label>
+                            <input type="text" id="input-nama" placeholder="Masukkan nama..." class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 font-semibold">Kelas / NIS</label>
+                            <input type="text" id="input-kelas" placeholder="Contoh: X-1 / 1024" class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="downloadCSV()" class="flex-1 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>📥 Unduh Spreadsheet (.CSV)</span>
+                        </button>
+                        <button onclick="generateCertificate()" class="flex-1 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>📜 Cetak Sertifikat</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Google Sheets Drive Banner -->
+                <div class="max-w-xl mx-auto text-xs text-slate-400 bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-center">
+                    Tautan Master Google Sheets Guru: <br>
+                    <a href="https://docs.google.com/spreadsheets/d/1uDZAHtNcjH1vvDthgvnzcCWi4qY-AoRl9B1ckaBZ2i4/edit?usp=drive_web" target="_blank" class="text-cyan-400 font-bold underline hover:text-cyan-300">
+                        🔗 Rekapitulasi_Nilai_dan_Rubrik_HOTS_Ekosistem_Media_Digital
+                    </a>
+                </div>
+            </div>
+
+            <!-- PRINTABLE CERTIFICATE TEMPLATE CONTAINER -->
+            <div id="certificate-wrapper" class="hidden bg-white text-slate-900 p-10 rounded-3xl border-8 border-cyan-500 max-w-3xl mx-auto space-y-6 shadow-2xl relative overflow-hidden">
+                <div class="text-center space-y-2 border-b-2 border-slate-200 pb-6">
+                    <span class="text-xs font-bold text-cyan-600 tracking-widest uppercase">SERTIFIKAT LITERASI MEDIA DIGITAL</span>
+                    <h3 class="text-3xl font-black text-slate-900">SERTA PEMAHAMAN EKOSISTEM DIGITAL</h3>
+                    <p class="text-xs text-slate-500">Diberikan sebagai bukti pencapaian kompetensi berpikir kritis (HOTS)</p>
+                </div>
+
+                <div class="text-center space-y-4 py-4">
+                    <p class="text-sm text-slate-600">Diberikan Kepada:</p>
+                    <h2 id="cert-name" class="text-3xl font-black text-cyan-700 underline uppercase tracking-wide">NAMA SISWA</h2>
+                    <p id="cert-class" class="text-sm font-semibold text-slate-500">Kelas: X-1</p>
+                    <p class="text-sm text-slate-700 max-w-lg mx-auto leading-relaxed">
+                        Telah menyelesaikan seluruh rangkaian analisis Ekosistem Media Digital serta Evaluasi Detektif Fakta, Opini, dan Hoaks dengan Total Nilai: <b id="cert-score" class="text-cyan-600">95/100</b>.
+                    </p>
+                </div>
+
+                <div class="flex justify-between items-end border-t-2 border-slate-200 pt-6 text-xs text-slate-500">
+                    <div>
+                        <p>Tanggal: <span id="cert-date">--/--/----</span></p>
+                        <p>Status: <b class="text-emerald-600">TUNTAS (KKTP)</b></p>
+                    </div>
+                    <div class="text-right">
+                        <div class="w-24 h-12 border-b border-slate-400 mb-1 ml-auto"></div>
+                        <p class="font-bold text-slate-800">Guru / Penguji Literasi Digital</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 border-t border-cyber-border py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p>© 2026 Media Pembelajaran Interaktif Ekosistem Media Digital.</p>
+            <p>Dirancang sesuai Rubrik HOTS & Integrasi Google Drive Dokumentasi Nilai Guru.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT GAME LOGIC & HOTS ENGINE -->
+    <script>
+        // ================= GLOBAL STATE =================
+        let activeScreen = 'home';
+        let scoreAkt1 = 0;
+        let scoreAkt2 = 0;
+        let scoreKuis = 0;
+        let selectedItemAkt1 = null;
+
+        // Data 9 Peran untuk Akt 1
+        const akt1Data = [
+            { id: 1, label: "Menulis draf laporan berita investigasi", category: "PRODUKSI" },
+            { id: 2, label: "Memperbaiki bug database portal berita", category: "TEKNOLOGI" },
+            { id: 3, label: "Memetakan statistik jam tayang postingan Instagram", category: "DISTRIBUSI" },
+            { id: 4, label: "Mengedit video berita liputan bencana", category: "PRODUKSI" },
+            { id: 5, label: "Mengamankan server dari serangan hacker DDOS", category: "TEKNOLOGI" },
+            { id: 6, label: "Merancang strategi keyword SEO artikel Google", category: "DISTRIBUSI" },
+            { id: 7, label: "Wawancara langsung dengan narasumber pakar", category: "PRODUKSI" },
+            { id: 8, label: "Mengembangkan fitur pencarian interaktif web berita", category: "TEKNOLOGI" },
+            { id: 9, label: "Mengelola pesan balasan dan respon audiens media sosial", category: "DISTRIBUSI" }
+        ];
+
+        // Data 6 Case Study untuk Akt 2
+        const akt2Data = [
+            {
+                author: "@info_kesehatan_viral",
+                content: "🚨 BAHAYA! Jangan minum air dingin setelah makan! Pembuluh darah bisa membeku seketika dan memicu kram otak!! SEBARKAN KE GROUP KELUARGA SEBELUM DIHAPUS!",
+                answer: "HOAKS",
+                explanation: "Ciri hoaks: Menggunakan tanda bahaya provokatif, menyebar ketakutan tanpa mekanisme medis ilmiah, dan memaksa untuk disebarkan."
+            },
+            {
+                author: "@bps_indonesia",
+                content: "📌 Berdasarkan Sensus Ekonomi 2023, penetrasi pengguna internet di Indonesia telah mencapai 78,19% dari total populasi.",
+                answer: "FAKTA",
+                explanation: "Ciri fakta: Memuat data kuantitatif presisi dari sumber lembaga resmi (BPS) yang dapat diverifikasi."
+            },
+            {
+                author: "@pengamat_gadget",
+                content: "💬 Tampilan sistem operasi smartphone terbaru ini menurut saya sangat tidak ramah pengguna dan warnanya membosankan.",
+                answer: "OPINI",
+                explanation: "Ciri opini: Berisi ungkapan selera subjektif ('menurut saya', 'membosankan') yang nilainya relatif bagi tiap orang."
+            },
+            {
+                author: "@dramapro_news",
+                content: "🚨 REKAMAN DETIK-DETIK ANGIN PUTING BELIUNG TADI PAGI DI JAKARTA! (Padahal video menggunakan footage badai Amerika tahun 2018)",
+                answer: "HOAKS",
+                explanation: "Ciri hoaks: Manipulasi konteks media (False Context), menggunakan rekaman lama untuk mengklaim peristiwa baru."
+            },
+            {
+                author: "@kemdikbud_ri",
+                content: "📌 Pendaftaran Beasiswa Talent Digital resmi dibuka tanggal 15 Maret hingga 10 April secara daring melalui portal resmi.",
+                answer: "FAKTA",
+                explanation: "Ciri fakta: Memuat informasi pengumuman agenda resmi lengkap dengan batas rentang waktu pasti."
+            },
+            {
+                author: "@warga_kritis",
+                content: "💬 Seharusnya pemerintah melarang penggunaan media sosial bagi anak sekolah agar nilai ujian meningkat pesat.",
+                answer: "OPINI",
+                explanation: "Ciri opini: Berisi usulan atau harapan subjektif yang belum tentu menjadi solusi mutlak."
+            }
+        ];
+        let currentAkt2Index = 0;
+
+        // Data 10 Soal HOTS untuk Kuis Evaluasi (C4 - C6)
+        const quizHotsData = [
+            {
+                level: "LEVEL C4: ANALISIS EKOSISTEM",
+                question: "Sebuah portal berita online menerbitkan artikel berita investigasi yang sangat akurat. Namun dalam satu minggu, berita tersebut hanya dibaca oleh 12 orang. Berdasarkan analisis fungsi ekosistem digital, divisi manakah yang mengalami kegagalan fungsi?",
+                options: [
+                    "A. Tim Produksi (Reporter kurang jeli mencari berita)",
+                    "B. Tim Teknologi (Server web mati total)",
+                    "C. Tim Distribusi (Gagal merancang strategi SEO dan engagement sosial)",
+                    "D. Tim Editor (Terlalu lama mengedit tulisan)"
+                ],
+                correct: 2,
+                explanation: "Analisis: Berita sudah akurat (produksi sukses), namun tidak sampai ke audiens karena kegagalan strategi jangkauan/SEO oleh Tim Distribusi."
+            },
+            {
+                level: "LEVEL C5: EVALUASI PSIKOLOGI HOAKS",
+                question: "Mengapa narasi hoaks bertema 'ancaman kesehatan mendadak' berlebihan lebih cepat menyebar luas di grup pesan berantai dibanding artikel klarifikasi dokter?",
+                options: [
+                    "A. Karena hoaks ditulis dengan bahasa Latin medis yang keren",
+                    "B. Karena hoaks memanfaatkan emosi rasa takut (fear-mongering) yang memicu tindakan impulsif tanpa verifikasi",
+                    "C. Karena artikel dokter harganya sangat mahal",
+                    "D. Karena masyarakat tidak suka membaca tulisan bergambar"
+                ],
+                correct: 1,
+                explanation: "Evaluasi: Pembuat hoaks sengaja mengeksploitasi bias emosional ketakutan publik sehingga audiens tergerak mendistribusikan informasi sebelum berpikir kritis."
+            },
+            {
+                level: "LEVEL C4: PEMISAHAN FAKTA & OPINI",
+                question: "Perhatikan kalimat: 'Tingkat inflasi bulan ini mencapai 2,5%, dan menurut saya ini adalah prestasi ekonomi terbaik yang belum pernah dirasakan masyarakat.' Unsur apakah yang terkandung dalam kalimat tersebut?",
+                options: [
+                    "A. Murni 100% Fakta",
+                    "B. Murni 100% Hoaks menyesatkan",
+                    "C. Kombinasi Fakta (data 2,5%) dan Opini ('menurut saya prestasi terbaik')",
+                    "D. Kombinasi Opini dan Hoaks"
+                ],
+                correct: 2,
+                explanation: "Analisis: Angka 2,5% adalah data fakta kuantitatif, sedangkan klaim 'prestasi terbaik' merupakan pendapat/penilaian subjektif."
+            },
+            {
+                level: "LEVEL C5: EVALUASI ALGORITMA MEDIA",
+                question: "Bagaimanakah dampak fenomena 'Filter Bubble' (Gelembung Algoritma) terhadap pola pikir seorang pengguna media digital dalam membedakan opini dan fakta?",
+                options: [
+                    "A. Membuat pengguna semakin cerdas membaca berita beragam",
+                    "B. Mengunci pengguna dalam sudut pandang serupa sehingga memicu anggapan bahwa opini kelompoknya adalah fakta mutlak",
+                    "C. Mematikan sambungan internet secara otomatis jika ada berita palsu",
+                    "D. Mengubah seluruh postingan hoaks menjadi fakta"
+                ],
+                correct: 1,
+                explanation: "Evaluasi: Algoritma merekomendasikan konten sesuai minat pengguna, menciptakan ruang gema (echo chamber) yang mengaburkan batas fakta dan pandangan pribadi."
+            },
+            {
+                level: "LEVEL C4: ANALISIS TEKNOLOGI MEDIA",
+                question: "Ketika terjadi peristiwa bencana alam nasional, trafik pengunjung portal berita melonjak 5000%. Tindakan taktis apakah yang harus diprioritaskan oleh Tim Teknologi & Multimedia?",
+                options: [
+                    "A. Menulis naskah berita bencana baru",
+                    "B. Memperluas kapasitas server (load balancing) dan mengoptimalkan CDN agar web tidak crash",
+                    "C. Membuat akun Instagram baru",
+                    "D. Mengganti warna logo redaksi"
+                ],
+                correct: 1,
+                explanation: "Analisis: Menjaga stabilitas infrastruktur jaringan dan aksesibilitas platform saat trafik puncak adalah tugas utama Tim Teknologi."
+            },
+            {
+                level: "LEVEL C5: EVALUASI MANIPULASI VISUAL",
+                question: "Seorang pembaca menemukan video unjuk rasa ricuh dengan keterangan 'Kejadian Hari Ini di Kota X'. Apa langkah evaluasi kritis pertama yang paling tepat dilakukan?",
+                options: [
+                    "A. Langsung menyebarkan ke grup sekolah",
+                    "B. Mengkritik unjuk rasa di kolom komentar",
+                    "C. Melakukan Reverse Image Search pada tangkapan layar video untuk mengecek tanggal penerbitan asli video tersebut",
+                    "D. Menghapus aplikasi media sosial"
+                ],
+                correct: 2,
+                explanation: "Evaluasi: Verifikasi lisensi visual menggunakan metode lacak gambar (Reverse Search) efektif membuktikan kasus manipulasi konteks (False Context)."
+            },
+            {
+                level: "LEVEL C4: ETIKA REDAKSI & GATEKEEPING",
+                question: "Seorang reporter mengirim draf berita sensasional yang belum dikonfirmasi kebenarannya agar portal mendapatkan trafik cepat. Sebagai Editor (Tim Produksi), apa tindakan beretika yang wajib dilakukan?",
+                options: [
+                    "A. Langsung menerbitkan agar tidak kedahuluan media lain",
+                    "B. Menahan draf berita dan menugaskan verifikasi ulang ke sumber narasumber sah",
+                    "C. Membagikan draf berita ke grup WhatsApp",
+                    "D. Mengubah nama reporter menjadi nama anonim"
+                ],
+                correct: 1,
+                explanation: "Analisis: Editor berfungsi sebagai gatekeeper (penjaga gawang akurasi) yang mengutamakan kebenaran fakta di atas kecepatan clickbait."
+            },
+            {
+                level: "LEVEL C5: EVALUASI MOTIF CLICKBAIT",
+                question: "Judul Berita: 'GEMPAR! Tokoh Ini Akhirnya Angkat Bicara Soal Rahasia Besar!'. Mengapa model judul ini tergolong strategi Clickbait yang merugikan ekosistem digital?",
+                options: [
+                    "A. Karena menggunakan huruf kapital berlebihan",
+                    "B. Karena menyembunyikan substansi informasi demi memanipulasi klik demi pendapatan iklan semata",
+                    "C. Karena tidak bisa diklik di layar smartphone",
+                    "D. Karena ditulis oleh tim teknologi"
+                ],
+                correct: 1,
+                explanation: "Evaluasi: Clickbait mengeksploitasi jurang rasa ingin tahu (curiosity gap) tanpa memberikan isi berita yang sepadan, menurunkan kualitas literasi publik."
+            },
+            {
+                level: "LEVEL C6: SINTESIS PROSEDUR CHECKING",
+                question: "Rancangkan urutan langkah paling sistematis (Sintesis) saat menerima pesan berantai yang mengklaim ada pembagian bantuan dana gratis!",
+                options: [
+                    "A. Klik link -> Isi formulir nama -> Bagikan ke 10 teman",
+                    "B. Cek domain URL resmi -> Verifikasi ke situs TurnBackHoax/CekFakta -> Abaikan jika meminta data sensitif",
+                    "C. Tanya teman -> Klik link -> Berdoa",
+                    "D. Bagikan dulu -> Baru dibaca"
+                ],
+                correct: 1,
+                explanation: "Sintesis Prosedur: Memeriksa alamat domain resmi dan mengonfirmasi ke platform cek fakta independent adalah prosedur baku penanganan hoaks phishing."
+            },
+            {
+                level: "LEVEL C4: SINERGI EKOSISTEM DIGITAL",
+                question: "Manakah contoh sinergi 3 Tim (Produksi, Teknologi, Distribusi) yang paling tepat dalam peluncuran program Live Report Berita Pemilu?",
+                options: [
+                    "A. Reporter wawancara (Produksi) + Dev siapkan server streaming (Teknologi) + Sosmed Specialist promosikan jadwal tayang (Distribusi)",
+                    "B. Editor menulis naskah sendirian dari awal sampai tayang tanpa tim lain",
+                    "C. Tim Distribusi membuat server web sendiri",
+                    "D. Tim Teknologi melakukan wawancara narasumber di lapangan"
+                ],
+                correct: 0,
+                explanation: "Analisis Sinergi: Kolaborasi ideal tercapai ketika Produksi mengolah isi berita, Teknologi menyediakan platform siaran, dan Distribusi menjangkau penonton."
+            }
+        ];
+        let currentQuizIndex = 0;
+        let quizAnswers = new Array(10).fill(null);
+
+        // ================= NAVIGATION SYSTEM =================
+        function showScreen(screenId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`screen-${screenId}`).classList.remove('hidden');
+            activeScreen = screenId;
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (screenId === 'submodul1') initAkt1();
+            if (screenId === 'submodul2') initAkt2();
+            if (screenId === 'kuis') initQuiz();
+        }
+
+        function updateProgress() {
+            let p = 0;
+            if (activeScreen === 'submodul1') p = 25;
+            if (activeScreen === 'submodul2') p = 50;
+            if (activeScreen === 'kuis') p = 75;
+            if (activeScreen === 'hasil') p = 100;
+
+            document.getElementById('progress-percent').innerText = `${p}% Selesai`;
+            document.getElementById('progress-bar-fill').style.width = `${p}%`;
+        }
+
+        // ================= AKTIVITAS 1 LOGIC =================
+        function initAkt1() {
+            const container = document.getElementById('akt1-items');
+            container.innerHTML = '';
+            akt1Data.forEach(item => {
+                const btn = document.createElement('div');
+                btn.id = `akt1-item-${item.id}`;
+                btn.className = "bg-slate-800 border border-slate-700 hover:border-cyan-400 p-3 rounded-xl text-xs text-slate-200 cursor-pointer transition flex items-center justify-between space-x-2";
+                btn.innerHTML = `<span>${item.label}</span> <span class="text-cyan-400 font-bold">+</span>`;
+                btn.onclick = () => selectAkt1Item(item);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAkt1Item(item) {
+            selectedItemAkt1 = item;
+            document.querySelectorAll('#akt1-items > div').forEach(el => el.classList.remove('border-cyan-400', 'bg-slate-700'));
+            document.getElementById(`akt1-item-${item.id}`).classList.add('border-cyan-400', 'bg-slate-700');
+        }
+
+        function dropAkt1(targetCategory) {
+            if (!selectedItemAkt1) {
+                alert("Pilih salah satu skenario tugas di atas terlebih dahulu!");
+                return;
+            }
+
+            const fb = document.getElementById('akt1-feedback');
+            fb.classList.remove('hidden', 'bg-red-500/20', 'text-red-400', 'bg-emerald-500/20', 'text-emerald-400');
+
+            if (selectedItemAkt1.category === targetCategory) {
+                // Correct
+                scoreAkt1 += 10;
+                document.getElementById('akt1-score').innerText = scoreAkt1;
+                
+                const targetDiv = document.getElementById(`target-${targetCategory}`);
+                const tag = document.createElement('div');
+                tag.className = "bg-slate-900 p-2 rounded text-xs text-slate-200 border border-emerald-500/40 flex items-center justify-between";
+                tag.innerHTML = `<span>✓ ${selectedItemAkt1.label}</span>`;
+                targetDiv.appendChild(tag);
+
+                document.getElementById(`akt1-item-${selectedItemAkt1.id}`).remove();
+                selectedItemAkt1 = null;
+
+                fb.classList.add('bg-emerald-500/20', 'text-emerald-400');
+                fb.innerText = "Tepat Sekali! Peran tersebut sesuai dengan tugas pokok tim ini.";
+            } else {
+                // Wrong
+                fb.classList.add('bg-red-500/20', 'text-red-400');
+                fb.innerText = `Kurang tepat! Tugas tersebut berfokus pada fungsi ${selectedItemAkt1.category}. Coba analisis kembali!`;
+            }
+        }
+
+        // ================= AKTIVITAS 2 LOGIC =================
+        function initAkt2() {
+            renderAkt2Case();
+        }
+
+        function renderAkt2Case() {
+            const data = akt2Data[currentAkt2Index];
+            document.getElementById('akt2-current-index').innerText = currentAkt2Index + 1;
+            document.getElementById('akt2-author').innerText = data.author;
+            document.getElementById('akt2-content').innerText = data.content;
+
+            const fbBox = document.getElementById('akt2-fb-box');
+            fbBox.classList.add('hidden');
+        }
+
+        function answerAkt2(userChoice) {
+            const data = akt2Data[currentAkt2Index];
+            const fbBox = document.getElementById('akt2-fb-box');
+            fbBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/40', 'text-emerald-300', 'bg-rose-500/10', 'border-rose-500/40', 'text-rose-300');
+
+            if (userChoice === data.answer) {
+                scoreAkt2 += 15;
+                fbBox.classList.add('bg-emerald-500/10', 'border-emerald-500/40', 'text-emerald-300');
+                fbBox.innerHTML = `<b>✓ BENAR! (Jawaban: ${data.answer})</b><p>${data.explanation}</p>`;
+            } else {
+                fbBox.classList.add('bg-rose-500/10', 'border-rose-500/40', 'text-rose-300');
+                fbBox.innerHTML = `<b>✕ KURANG TEPAT. (Seharusnya: ${data.answer})</b><p>${data.explanation}</p>`;
+            }
+
+            setTimeout(() => {
+                if (currentAkt2Index < akt2Data.length - 1) {
+                    currentAkt2Index++;
+                    renderAkt2Case();
+                } else {
+                    alert("Seluruh kasus Detektif Informasi telah diselesaikan!");
+                }
+            }, 2500);
+        }
+
+        // ================= KUIS EVALUASI HOTS =================
+        function initQuiz() {
+            currentQuizIndex = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = quizHotsData[currentQuizIndex];
+            document.getElementById('quiz-num').innerText = currentQuizIndex + 1;
+            document.getElementById('quiz-level-badge').innerText = q.level;
+            document.getElementById('quiz-question-text').innerText = q.question;
+
+            const optsContainer = document.getElementById('quiz-options-container');
+            optsContainer.innerHTML = '';
+
+            q.options.forEach((optText, i) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400 text-sm text-slate-200 transition flex items-center justify-between";
+                btn.innerText = optText;
+                btn.onclick = () => selectQuizOption(i);
+                optsContainer.appendChild(btn);
+            });
+
+            document.getElementById('quiz-explanation').classList.add('hidden');
+            const btnNext = document.getElementById('btn-next-quiz');
+            btnNext.disabled = true;
+            btnNext.className = "px-6 py-3 bg-slate-800 text-slate-500 font-bold rounded-xl cursor-not-allowed transition";
+        }
+
+        function selectQuizOption(optionIdx) {
+            const q = quizHotsData[currentQuizIndex];
+            quizAnswers[currentQuizIndex] = optionIdx;
+
+            const opts = document.querySelectorAll('#quiz-options-container > button');
+            opts.forEach((b, i) => {
+                b.disabled = true;
+                if (i === q.correct) {
+                    b.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+                } else if (i === optionIdx) {
+                    b.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-300');
+                }
+            });
+
+            if (optionIdx === q.correct) {
+                scoreKuis += 10;
+            }
+
+            const expBox = document.getElementById('quiz-explanation');
+            expBox.classList.remove('hidden');
+            expBox.innerHTML = `<b>Penjelasan Pedagogi HOTS:</b> ${q.explanation}`;
+
+            const btnNext = document.getElementById('btn-next-quiz');
+            btnNext.disabled = false;
+            btnNext.className = "px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition cursor-pointer";
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < quizHotsData.length - 1) {
+                currentQuizIndex++;
+                renderQuizQuestion();
+            } else {
+                finishAllEvaluations();
+            }
+        }
+
+        function finishAllEvaluations() {
+            showScreen('hasil');
+
+            // Max Akt 1 = 90, Akt 2 = 90, Kuis = 100
+            // Weighting scale to 100%
+            const totalScore = Math.round(((scoreAkt1 / 90) * 30) + ((scoreAkt2 / 90) * 35) + ((scoreKuis / 100) * 35));
+
+            document.getElementById('res-akt1').innerText = `${scoreAkt1}/90`;
+            document.getElementById('res-akt2').innerText = `${scoreAkt2}/90`;
+            document.getElementById('res-kuis').innerText = `${scoreKuis}/100`;
+            document.getElementById('res-total').innerText = `${totalScore} XP`;
+
+            let predikat = "Penyelidik Pemula";
+            if (totalScore >= 85) predikat = "Detektif Digital Master 🏆";
+            else if (totalScore >= 70) predikat = "Analis Informasi Handal 🎖️";
+
+            document.getElementById('res-predikat').innerText = predikat;
+
+            // Trigger Confetti
+            if (totalScore >= 70) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+        }
+
+        // ================= DOKUMENTASI SPREADSHEET (CSV) =================
+        function downloadCSV() {
+            const nama = document.getElementById('input-nama').value || "Siswa_Anonim";
+            const kelas = document.getElementById('input-kelas').value || "X-1";
+            const totalScore = Math.round(((scoreAkt1 / 90) * 30) + ((scoreAkt2 / 90) * 35) + ((scoreKuis / 100) * 35));
+            const status = totalScore >= 70 ? "TUNTAS" : "REMEDIAL";
+            const dateStr = new Date().toLocaleDateString('id-ID');
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Nama Siswa,Kelas/NIS,Tanggal,Skor Akt 1,Skor Akt 2,Skor Kuis HOTS,Nilai Akhir (100%),Status KKTP\n";
+            csvContent += `"${nama}","${kelas}","${dateStr}",${scoreAkt1},${scoreAkt2},${scoreKuis},${totalScore},"${status}"\n`;
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Rekap_Nilai_HOTS_${nama.replace(/\s+/g, '_')}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // ================= CERTIFICATE GENERATOR =================
+        function generateCertificate() {
+            const nama = document.getElementById('input-nama').value || "Siswa Pemelajar";
+            const kelas = document.getElementById('input-kelas').value || "X-1";
+            const totalScore = Math.round(((scoreAkt1 / 90) * 30) + ((scoreAkt2 / 90) * 35) + ((scoreKuis / 100) * 35));
+
+            document.getElementById('cert-name').innerText = nama;
+            document.getElementById('cert-class').innerText = `Kelas / NIS: ${kelas}`;
+            document.getElementById('cert-score').innerText = `${totalScore}/100`;
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('id-ID');
+
+            const certDiv = document.getElementById('certificate-wrapper');
+            certDiv.classList.remove('hidden');
+            certDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                window.print();
+            }, 800);
+        }
+
+        // Initialize Home screen on load
+        showScreen('home');
+    </script>
+</body>
+</html>
